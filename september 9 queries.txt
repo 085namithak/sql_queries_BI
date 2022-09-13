@@ -1,0 +1,26 @@
+1. write a query to display top salaried employees location wise- city
+
+select first_name, last_name, city, salary from emp_details_view where(salary, city) 
+in (select max(salary), city from emp_details_view group by city) order by salary DESC;
+
+2. write a query to display employees based on bonous department wise?
+
+select department_id, first_name, last_name, salary, commission_pct, salary+nvl(commission_pct,0) as bonous 
+from employees where(department_id) in (select department_id from employees group by department_id) order by department_id DESC;
+
+3. write PLSQL block for calculating students grade
+
+DECLARE
+ grade number(5) := 78;
+BEGIN
+ IF GRADE >90 AND GRADE < 100 THEN
+  dbms_output.put_line('grade A');
+ ELSIF GRADE >80 AND GRADE <90 THEN
+  dbms_output.put_line('grade B');
+ ELSIF GRADE > 70 AND GRADE < 80 THEN
+  dbms_output.put_line('grade C');
+ ELSE
+  dbms_output.put_line('failure');
+ END IF;
+END;
+/

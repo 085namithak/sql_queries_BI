@@ -1,0 +1,16 @@
+1. WAQ to display number of employees joined year wise.
+select to_char(hire_date,'YY') as year, count(*) as count from employees group by to_char(hire_date,'YY') order by 1;
+
+2. WAQ to top 2 earning employee name and salary in each department. 
+select distinct * 
+from employees e
+where 3 >= (select count(distinct d.salary)
+            from employees d
+            where e.department_id = d.department_id and d.salary >= e.salary);
+
+3. How many rows will be displayed in each case for below joins
+
+select * from TableA a cross join TableB b where a.dept_id=b.dept_id;
+select * from TableA natural join TableB;
+select a.emp_name, b.dept_name from TableA a left join TableB b on a.dept_id=b.dept_id;
+select a.emp_name, b.dept_name from TableA a right join TableB b on a.dept_id=b.dep_id;

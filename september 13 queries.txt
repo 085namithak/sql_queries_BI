@@ -1,0 +1,40 @@
+1) Write a procedure for calculating bonous of employee no 205
+
+create or replace procedure give_empid_bonous(empid IN INTEGER)
+IS
+    bonous employees.salary%type;
+BEGIN
+    SELECT (salary+nvl(commission_pct,0)) INTO bonous from employees WHERE employee_id=empid;
+    dbms_output.put_line(bonous);
+END;
+BEGIN
+    give_empid_bonous(167);
+END;
+________________________________________________________________________________________________________________________________________
+
+2) Write a procedure for giving bonous to employees based on below rules- if job_id is IT_PROG then salary will be increased by 1000 and
+if job_id is SA_REP then salary will be increase by 700.
+
+create or replace procedure give_empid_salary(empid IN INTEGER)
+IS
+    bonous employees.salary%TYPE;
+    jobid varchar(10);
+BEGIN
+    select job_id into jobid from employees where employee_id=empid;
+    IF jobid like 'IT_PROG' then
+        BEGIN
+            select (salary+1000) into bonous from employees where employee_id=empid;
+            dbms_output.put_line(bonous);
+        END;
+    elsif jobid like 'SA_REP' then
+        BEGIN
+            select (salary+700) into bonous from employees where employee_id=empid;
+            dbms_output.put_line(bonous);
+        END;
+    else
+        dbms_output.put_line('NO BONOUS');
+    end if;
+END;
+begin
+    give_empid_salary(105);
+end;

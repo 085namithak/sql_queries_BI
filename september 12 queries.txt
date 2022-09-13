@@ -1,0 +1,57 @@
+1) Create student grade calculator as function and procedure both.
+
+************Using Functions********************
+
+CREATE or REPLACE FUNCTION Grade_Calculator(score IN INTEGER)
+    RETURN varchar2
+is
+    grade varchar2(10);
+BEGIN
+    if score>90 and score<100 then
+        return 'A';
+    elsif score>80 and score<90 then
+        return 'B';
+    elsif score>70 and score<80 then 
+        return 'c';
+    else
+        return 'failure';
+    end if;
+end;
+begin
+    dbms_output.put_line(Grade_Calculator(82));
+end;
+
+************Using Procedure****************
+
+CREATE or REPLACE PROCEDURE Grade_Cal(score IN INTEGER)
+is    
+BEGIN
+    if score>90 and score<100 then
+        dbms_output.put_line('Grade A');  
+    elsif score>80 and score<90 then
+        dbms_output.put_line('Grade B');
+    elsif score>70 and score<80 then 
+        dbms_output.put_line('Grade c');
+    else
+        dbms_output.put_line('failure');
+    end if;
+END;
+BEGIN
+    Grade_Cal(82);
+END;
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+2) create procedure for fetching maximum salary employee in department 100.
+
+CREATE or REPLACE PROCEDURE give_MaxSalry_forId(deptid IN INTEGER)
+IS
+    esalary employees.salary%TYPE;
+BEGIN
+    SELECT max(salary) into esalary from employees where department_id=deptid;
+    dbms_output.put_line(esalary);
+END;
+BEGIN
+give_MaxSalry_forId(100);
+END;
+
+    
