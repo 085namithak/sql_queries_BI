@@ -20,7 +20,7 @@ BEGIN
             dbms_output.put_line('salary'||erecord.salary);
             dbms_output.put_line('bonous'||(erecord.salary+700));
         else
-            dbms_out.put_line('No BONOUS');
+            dbms_output.put_line('No BONOUS');
         end if;
     END LOOP;
     CLOSE emp_cur;
