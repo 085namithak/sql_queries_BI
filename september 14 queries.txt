@@ -1,0 +1,27 @@
+1) Write a procedure for giving bonous to employees based on below rules- if job_id is IT_PROG then salary will be increased by 1000 and
+if job_id is SA_REP then salary will be increase by 700.
+
+
+DECLARE
+    jobid emp.job_id%TYPE:=&jobid;
+    erecord emp%ROWTYPE;
+CURSOR emp_cur is select * from emp where job_id=jobid;
+BEGIN
+    OPEN emp_cur;
+    LOOP
+        FETCH emp_cur into erecord;
+        EXIT when emp_cur%NOTFOUND;
+        if (erecord.job_id like 'IT_PROG') then
+            dbms_output.put_line('jobid'||erecord.job_id);
+            dbms_output.put_line('salary'||erecord.salary);
+            dbms_output.put_line('bonous'||(erecord.salary+1000));
+        elsif (erecord.job_id like 'SA_REP') then
+            dbms_output.put_line('jobid'||erecord.job_id);
+            dbms_output.put_line('salary'||erecord.salary);
+            dbms_output.put_line('bonous'||(erecord.salary+700));
+        else
+            dbms_out.put_line('No BONOUS');
+        end if;
+    END LOOP;
+    CLOSE emp_cur;
+END;
