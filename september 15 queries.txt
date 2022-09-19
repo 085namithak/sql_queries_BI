@@ -1,0 +1,26 @@
+1) Write a procedure to fetch all records of job_id manager with their subordinates
+create or replace procedure mgr(jid IN VARCHAR)
+IS
+    eid emp.employee_id%TYPE;
+    ename emp.first_name%TYPE;
+    jobid emp.job_id%TYPE;
+    cnt number;
+cursor cur is SELECT sup.employee_id, sup.first_name, sup.job_id, COUNT (sub.employee_id) AS number_of_employees FROM emp sub JOIN emp sup
+ON sub.manager_id = sup.employee_id
+GROUP BY sup.employee_id, sup.first_name, sup.job_id;
+begin
+    open cur;
+    loop
+        fetch cur into eid,ename,jobid, cnt;
+        exit when cur%NOTFOUND;
+        if(jid like jobid) then
+            dbms_output.put_line(eid ||  ename  ||  jobid  ||  cnt);
+        end if;
+    end loop;
+    close cur;
+end;
+begin
+mgr('FI_MGR');
+end;
+            
+            
